@@ -1,0 +1,10 @@
+# configuration
+[app]
+port = 8080
+host = "localhost"
+env = "local"
+name = "chat-grpc-go"
+
+[jaeger]
+host = "localhost"
+port = "6831"

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package chat;
+
+option go_package = "github.com/rifqiakrm/chat-grpc-go/pb/chat";
+
+message Room {
+  string room_id = 1;
+  string user_id = 2;
+}
+
+message Chat {
+  string ids = 1;
+  string room_id = 2;
+  string user_id = 3;
+  string message = 4;
+  ChatAdditional additional = 5;
+  bool is_read = 8;
+  string created_at = 6;
+  Type type = 7;
+}
+
+message ChatAck {
+  string status = 1;
+}
+
+message ChatRoom {
+  string room_id = 1;
+  UserInfo user = 2;
+  UserInfo another_user = 3;
+}
+
+message ChatAdditional {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string image = 4;
+  double amount = 5;
+}
+
+enum Type {
+  TEXT = 0;
+  ORDER = 1;
+  PRODUCT = 2;
+  IMAGE = 3;
+}
+
+message UserInfo {
+  string id = 1;
+  string name = 2;
+}
+
+service ChatService {
+  rpc JoinRoom(Room) returns (stream Chat) {};
+  rpc SendMessage(stream Chat) returns (ChatAck) {};
+}
