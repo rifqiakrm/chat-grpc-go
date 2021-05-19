@@ -37,7 +37,7 @@ Simply run `go run main.go` and the server will be up in no time!
 
 To run as a client you need to run
 ```
-go run client/example.go -sender rifqiakrm -room default
+go run client/example_client.go -sender rifqiakrm -room default
 ```
 
 ## Thanks to
