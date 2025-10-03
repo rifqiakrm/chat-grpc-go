@@ -16,16 +16,60 @@ It comes pre-configured with :
 Use this command to install the blueprint
 
 ```bash
-go get github.com/rifqiakrm/chat-grpc-go
+go get chat-grpc-go
 ```
 
 ## Generate Protocol Buffer
 
+Install prerequisites
+
+Ubuntu/Debian:
+```
+sudo apt update
+sudo apt install -y protobuf-compiler
+protoc --version
+
+```
+
+macOS (Homebrew):
+```
+brew install protobuf
+protoc --version
+```
+
+Windows
+
+Download protoc-<version>-win64.zip from protobuf releases\
+
+Extract the zip (e.g., to C:\protoc).
+
+Add C:\protoc\bin to your PATH in Environment Variables.
+
+Open a new Command Prompt or PowerShell and check:
+
+```
+protoc --version
+```
+
+Then, install
+
+```
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+```
+
+And add Go bin to PATH:
+```
+export PATH="$PATH:$(go env GOPATH)/bin"
+```
+
 Use this command to generate protocol buffer manually :
 
 ```
-protoc -I $GOPATH/src --go_out=$GOPATH/src $GOPATH/src/github.com/rifqiakrm/{project_name}/proto/{proto_dir}/{your_proto}.proto
-protoc -I $GOPATH/src --go-grpc_out=$GOPATH/src $GOPATH/src/github.com/rifqiakrm/{project_name}/proto/{proto_dir}/{your_proto}.proto
+protoc \
+  --go_out=pb --go_opt=paths=source_relative \
+  --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+  proto/chat/chat.proto
 ```
 or you can do a simple command like `./generate.sh`, but make sure that `generate.sh` is an executable file. If you faced an error while executing the file try to run `chmod +x generate.sh` then run `./generate.sh` again.
 

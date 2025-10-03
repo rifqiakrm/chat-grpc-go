@@ -1,14 +1,15 @@
 package cmd
 
 import (
+	"chat-grpc-go/app"
 	"fmt"
-	_ "github.com/lib/pq"
-	"github.com/rifqiakrm/chat-grpc-go/app"
-	trace "github.com/rifqiakrm/go-microservice-lib/tracer"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	"log"
 	"os"
+
+	_ "github.com/lib/pq"
+	"github.com/opentracing/opentracing-go"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 type server interface {
@@ -16,7 +17,7 @@ type server interface {
 }
 
 var (
-	cfgFile   string
+	cfgFile string
 )
 
 var rootCMD = &cobra.Command{
@@ -78,19 +79,12 @@ func Execute() {
 
 func GRPCService() {
 	var port = viper.GetInt("app.port")
-	var jaegeraddr = fmt.Sprintf("%v:%v",
-		viper.GetString("jaeger.host"),
-		viper.GetString("jaeger.port"),
-	)
-	tracer, err := trace.New(viper.GetString("app.name"), jaegeraddr)
-	if err != nil {
-		log.Fatalf("trace new error: %v", err)
-	}
-	log.Println("jaeger initiated!")
 
 	var srv server
 
-	srv = app.NewChat(tracer)
+	newTracer := opentracing.NoopTracer{}
+
+	srv = app.NewChat(newTracer)
 
 	if err := srv.Run(port); err != nil {
 		log.Fatalf("failed to start rpc server : %v", err)

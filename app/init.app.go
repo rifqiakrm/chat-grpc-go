@@ -1,10 +1,10 @@
 package app
 
 import (
+	"chat-grpc-go/pb/proto/chat"
 	"fmt"
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
 	"github.com/opentracing/opentracing-go"
-	"github.com/rifqiakrm/chat-grpc-go/pb/chat"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

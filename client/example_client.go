@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
+	"chat-grpc-go/pb/proto/chat"
 	"context"
 	"flag"
 	"fmt"
-	"github.com/rifqiakrm/chat-grpc-go/pb/chat"
 	"io"
 	"log"
 	"os"

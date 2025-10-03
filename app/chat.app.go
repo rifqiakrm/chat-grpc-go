@@ -1,12 +1,12 @@
 package app
 
 import (
+	"chat-grpc-go/pb/proto/chat"
 	"fmt"
-	"github.com/rifqiakrm/chat-grpc-go/pb/chat"
 	"io"
 )
 
-//Server streaming
+// Server streaming
 func (s *Chat) JoinRoom(req *chat.Room, stream chat.ChatService_JoinRoomServer) error {
 	msgChannel := make(chan *chat.Chat)
 	if s.chatRoom[req.GetRoomId()] == nil {
@@ -31,7 +31,7 @@ func (s *Chat) JoinRoom(req *chat.Room, stream chat.ChatService_JoinRoomServer) 
 	}
 }
 
-//Client Streaming
+// Client Streaming
 func (s *Chat) SendMessage(stream chat.ChatService_SendMessageServer) error {
 	msg, err := stream.Recv()
 

@@ -1,2 +1,6 @@
-protoc -I $GOPATH/src --go_out=$GOPATH/src $GOPATH/src/github.com/rifqiakrm/chat-grpc-go/proto/chat/chat.proto
-protoc -I $GOPATH/src --go-grpc_out=$GOPATH/src $GOPATH/src/github.com/rifqiakrm/chat-grpc-go/proto/chat/chat.proto
+mkdir pb
+
+protoc \
+  --go_out=pb --go_opt=paths=source_relative \
+  --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+  proto/chat/chat.proto

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/rifqiakrm/chat-grpc-go/cmd"
+	"chat-grpc-go/cmd"
 )
 
 func main() {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package chat;
 
-option go_package = "github.com/rifqiakrm/chat-grpc-go/pb/chat";
+option go_package = "chat-grpc-go/pb/chat";
 
 message Room {
   string room_id = 1;
